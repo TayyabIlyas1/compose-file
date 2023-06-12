@@ -1,0 +1,10 @@
+Access the container running Jenkins:
+#docker exec -it <container_name> /bin/bash
+Once inside the container's shell, navigate to the Jenkins home directory:
+#cd /var/jenkins_home/.ssh
+Use the ssh-keyscan command to retrieve the host key for (node ip) and append it to the known hosts file:
+#ssh-keyscan (node ip) >> known_hosts
+Verify that the host key has been added to the file:
+#cat known_hosts
+Exit the container's shell:
+#exit
