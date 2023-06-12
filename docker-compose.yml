@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  registry:
+    image: registry:2
+    container_name: my-registry
+    restart: always
+    ports:
+      - 5000:5000
+    volumes:
+      - ./data:/var/lib/registry
+
+  registry-ui:
+    image: konradkleine/docker-registry-frontend:v2
+    container_name: registry-ui
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - ENV_DOCKER_REGISTRY_HOST=my-registry
+      - ENV_DOCKER_REGISTRY_PORT=5000
+  portainer:
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: portainer
